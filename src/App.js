@@ -3,8 +3,9 @@ import ReactTV from 'react-tv';
 import { withNavigation } from 'react-tv-navigation';
 import $ from 'jquery';
 import Stream from './Stream'
-
+import { Client_ID, OAuth } from './config'
 var twitchStreams = require('twitch-get-stream')(Client_ID); // twitch now ENFORCES client id usage, so this is required.
+import SideBar from './Sidebar'
 
 class App extends React.Component {
   constructor(props) {
@@ -51,13 +52,29 @@ class App extends React.Component {
 
   render() {
     if (this.state.src) {
-      return <Stream src={this.state.src} ></Stream>
+      return (
+        <div id="App">
+          <SideBar />
+          <div id="page-wrap">
+            <Stream src={this.state.src} ></Stream>
+          </div>
+        </div>
+      );
     }else if (this.state.followed) {
       var self = this;
       var imgList = this.state.followed.streams.map(function (stream) {
           return <img src={stream.preview.medium} onClick={() => { self.getStreamFromChannel(stream.channel.name) }} key={stream._id} ></img>;
       })
-      return <div>{imgList}</div>
+      return (
+        <div id="App">
+          <SideBar />
+
+          <div id="page-wrap">
+            <div>{imgList}</div>
+          </div>
+        </div>
+
+      );
     }
     return (
       <div>Loading...</div>
