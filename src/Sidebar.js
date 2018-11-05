@@ -5,11 +5,7 @@ export default props => {
   return (
     <Menu>
       <a className="menu-item" href="/">
-        Browse
-      </a>
-
-      <a className="menu-item" href="/stream">
-        Following
+        Follow
       </a>
     </Menu>
   );

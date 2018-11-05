@@ -4,20 +4,15 @@ const Hls = require('hls.js');
 export default class Stream extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
-    this.state = {
-      src: null,
-    }
   }
   render(){
     const defaultProps = {
-          poster: null,
+          poster: this.props.poster,
           src: this.props.src,
-          width: 640,
-          height: 360,
+          height: 600,
           controls: true,
-          autoplay: true,
-          preload: 'auto',
+          autoplay: false,
+          preload: true,
     }
     let video = React.createElement('video', defaultProps)
     let hls = new Hls();
@@ -27,6 +22,6 @@ export default class Stream extends React.Component {
         console.log('HLS.js_READY');
       });
     }
-    return video
+      return video
   }
 }

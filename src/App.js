@@ -1,79 +1,84 @@
 import React from 'react';
 import ReactTV from 'react-tv';
 import { withNavigation } from 'react-tv-navigation';
-import $ from 'jquery';
 import Stream from './Stream'
-import { Client_ID, OAuth } from './config'
-var twitchStreams = require('twitch-get-stream')(Client_ID); // twitch now ENFORCES client id usage, so this is required.
+import { GetFollowed, GetStreamFromChannel } from './TwitchAPI'
 import SideBar from './Sidebar'
+import { Carousel } from '3d-react-carousal';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
     this.state = {
-      followed: null,
-      src: null,
+      streams: null,
+      loadStream: null,
     }
+    this.setState = this.setState.bind(this)
   }
 
   componentDidMount() {
-    this.GetFollowed();
+    GetFollowed(this.setState);
   }
 
-  GetFollowed(){
-    var self = this;
-    $.ajax({
-      type: 'GET',
-      url: 'https://api.twitch.tv/kraken/streams/followed',
-      headers: {
-        'Client-ID': Client_ID,
-        'Authorization': OAuth
-      },
-      success: function(json) {
-        self.setState({followed: json})
-        console.log(json);
-    }});
+  imgToStream(stream) {
+    this.setState({loadStream: stream});
   }
-
-
-  getStreamFromChannel(channel) {
-    var self = this;
-    console.log('click' , channel);
-    twitchStreams.get(channel)
-      .then((stream) => {
-          this.setState({src: stream[0].url})
-          console.log(stream[0].url);
-      }, (reason) => {
-        console.log(reason);
-      });
-  }
-
 
   render() {
-    if (this.state.src) {
-      return (
-        <div id="App">
-          <SideBar />
-          <div id="page-wrap">
-            <Stream src={this.state.src} ></Stream>
-          </div>
-        </div>
-      );
-    }else if (this.state.followed) {
-      var self = this;
-      var imgList = this.state.followed.streams.map(function (stream) {
-          return <img src={stream.preview.medium} onClick={() => { self.getStreamFromChannel(stream.channel.name) }} key={stream._id} ></img>;
+    var self = this;
+    if (this.state.loadStream) {
+      var imgList = this.state.streams.map(function (stream, index) {
+        if (stream.channel.name == self.state.loadStream.channel.name) {
+          return (
+              <div>
+              <div class="channel-name">
+                {stream.channel.name}
+              </div>
+                <Stream poster={stream.preview.large} src={stream.src} onClick={() => {}}/>
+              </div>
+            );
+        }
+            return (
+              <div>
+              <div class="channel-name">
+                {stream.channel.name}
+              </div>
+                <img height='600' src={stream.preview.large} onClick={function() {
+                    self.imgToStream(stream)
+                  }}/>
+              </div>
+            );
       })
       return (
         <div id="App">
-          <SideBar />
-
+            <SideBar />
           <div id="page-wrap">
-            <div>{imgList}</div>
+            <Carousel slides={imgList} />
           </div>
         </div>
-
+      );
+    } else
+    if (this.state.streams) {
+      var imgList = this.state.streams.map(function (stream, index) {
+            return (
+              <div>
+              <div class="channel-name">
+                {stream.channel.name}
+              </div>
+                <img height='600' src={stream.preview.large} onClick={function() {
+                    self.imgToStream(stream)
+                  }}
+                  />
+              </div>
+            );
+      })
+      return (
+        <div id="App">
+            <SideBar />
+          <div id="page-wrap">
+            <Carousel slides={imgList} />
+          </div>
+        </div>
       );
     }
     return (
