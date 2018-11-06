@@ -12,8 +12,6 @@ export default class Stream extends React.Component {
   }
   componentDidMount() {
     const { id } = this.props.match.params
-
-    console.log(id);
     GetStreamFromChannel(id, this.setState);
   }
   render(){
@@ -29,9 +27,8 @@ export default class Stream extends React.Component {
     let hls = new Hls();
     if(Hls.isSupported()) {
       hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED,function() {
-        console.log('HLS.js_READY');
-      });
+      // hls.on(Hls.Events.MANIFEST_PARSED,function() {
+      // });
     }
       return video
   }

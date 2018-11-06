@@ -11,15 +11,7 @@ exports.GetFollowed = function (callback){
       'Authorization': OAuth
     },
     success: function(json) {
-      console.log(json);
-      let streams = [];
-      console.log(json.streams.length);
-      console.log(json);
-      json.streams.map(function (stream, index) {
-        stream.src = 'ALMAFA';
-        // GetStreamFromChannel(stream, streams, json.streams.length, index, callback);
-      });
-
+      callback({streams: json.streams})
   }});
 }
 
@@ -31,7 +23,6 @@ exports.GetTopGames = function (callback){
       'Client-ID': Client_ID,
     },
     success: function(json) {
-      console.log(json);
       var games = [];
       json.top.map(function(data, index){
         games.push(data.game);
@@ -47,8 +38,6 @@ exports.GetStreamsFromGame = function (id, callback){
       'Client-ID': Client_ID,
     },
     success: function(json) {
-      console.log('------------------------------------------------------------------');
-      console.log(json);
       callback({streams: json.streams})
   }});
 }
@@ -56,6 +45,7 @@ exports.GetStreamsFromGame = function (id, callback){
 exports.GetStreamFromChannel = function (stream, callback) {
   twitchStreams.get(stream)
     .then((data) => {
+      //data[0] == source quality
       callback({src: data[0].url})
     }, (reason) => {
       callback({src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'})

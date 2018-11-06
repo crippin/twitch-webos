@@ -1,12 +1,17 @@
 import React from "react";
 import { elastic as Menu } from "react-burger-menu";
+import { Link } from "react-router-dom";
+
 
 export default props => {
   return (
     <Menu>
-      <a className="menu-item" href="/">
+      <Link to='/'>
+        Browse
+      </Link>
+      <Link to='/follow'>
         Follow
-      </a>
+      </Link>
     </Menu>
   );
 };

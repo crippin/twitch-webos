@@ -13,14 +13,11 @@ export default class Game extends React.Component {
   }
   componentDidMount () {
     const { id } = this.props.match.params
-
-    console.log(id);
     GetStreamsFromGame(id, this.setState);
   }
   render(){
     if (this.state.streams) {
       var imgList = this.state.streams.map(function (stream, index) {
-        console.log(stream);
         return (
           <div id="gamelist">
             <Link to={'/stream/' + stream.channel.display_name}>

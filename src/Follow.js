@@ -1,27 +1,26 @@
 import React from 'react';
-import { GetTopGames } from './TwitchAPI'
-import Game from './Game'
+import { GetFollowed } from './TwitchAPI';
 import { Link } from "react-router-dom";
 
 
-export default class Browse extends React.Component {
+export default class Follow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      topGames: null,
+      streams: null,
     }
     this.setState = this.setState.bind(this)
   }
-  componentDidMount() {
-    GetTopGames(this.setState);
+  componentDidMount () {
+    GetFollowed(this.setState);
   }
   render(){
-    if (this.state.topGames) {
-      var imgList = this.state.topGames.map(function (game, index) {
+    if (this.state.streams) {
+      var imgList = this.state.streams.map(function (stream, index) {
         return (
           <div id="gamelist">
-            <Link to={'/game/' + game.name}>
-              <img src={game.box.large} />
+            <Link to={'/stream/' + stream.channel.display_name}>
+              <img src={stream.channel.logo} />
             </Link>
           </div>
         );
