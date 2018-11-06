@@ -84,3 +84,11 @@ body {
 .channel-name {
   font-size: 2em;
 }
+
+#wrapper {
+    overflow: hidden; /* add this to contain floated children */
+}
+#gamelist {
+    float:left; /* add this */
+    border: 1px solid red;
+}

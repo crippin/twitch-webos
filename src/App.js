@@ -2,9 +2,12 @@ import React from 'react';
 import ReactTV from 'react-tv';
 import { withNavigation } from 'react-tv-navigation';
 import Stream from './Stream'
-import { GetFollowed, GetStreamFromChannel } from './TwitchAPI'
+import { GetFollowed, GetStreamFromChannel, GetTopGames } from './TwitchAPI'
 import SideBar from './Sidebar'
+import Browse from './Browse'
+import Game from './Game'
 import { Carousel } from '3d-react-carousal';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 class App extends React.Component {
   constructor(props) {
@@ -26,63 +29,17 @@ class App extends React.Component {
 
   render() {
     var self = this;
-    if (this.state.loadStream) {
-      var imgList = this.state.streams.map(function (stream, index) {
-        if (stream.channel.name == self.state.loadStream.channel.name) {
-          return (
-              <div>
-              <div class="channel-name">
-                {stream.channel.name}
-              </div>
-                <Stream poster={stream.preview.large} src={stream.src} onClick={() => {}}/>
-              </div>
-            );
-        }
-            return (
-              <div>
-              <div class="channel-name">
-                {stream.channel.name}
-              </div>
-                <img height='600' src={stream.preview.large} onClick={function() {
-                    self.imgToStream(stream)
-                  }}/>
-              </div>
-            );
-      })
-      return (
-        <div id="App">
-            <SideBar />
-          <div id="page-wrap">
-            <Carousel slides={imgList} />
-          </div>
-        </div>
-      );
-    } else
-    if (this.state.streams) {
-      var imgList = this.state.streams.map(function (stream, index) {
-            return (
-              <div>
-              <div class="channel-name">
-                {stream.channel.name}
-              </div>
-                <img height='600' src={stream.preview.large} onClick={function() {
-                    self.imgToStream(stream)
-                  }}
-                  />
-              </div>
-            );
-      })
-      return (
-        <div id="App">
-            <SideBar />
-          <div id="page-wrap">
-            <Carousel slides={imgList} />
-          </div>
-        </div>
-      );
-    }
     return (
-      <div>Loading...</div>
+      <Router>
+        <div>
+          <Link to="/" >LINK</Link>
+          <Switch>
+            <Route exact path="/" component={Browse} />
+            <Route exact path="/game/:id" component={Game}/>
+            <Route exact path="/stream/:id" component={Stream}/>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

@@ -37,6 +37,7 @@
     "jquery": "^3.3.1",
     "react-burger-menu": "^2.5.4",
     "react-dom": "^16.6.0",
+    "react-router-dom": "^4.3.1",
     "twitch-get-stream": "^0.5.0"
   }
 }
