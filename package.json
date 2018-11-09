@@ -5,7 +5,7 @@
     "files": [
       "index.html",
       "bundle.js",
-      "style.css"
+      "resource/style.css"
     ]
   },
   "scripts": {
@@ -13,6 +13,8 @@
     "start": "webpack-dev-server --progress --colors",
     "build": "webpack",
     "build-prod": "cross-env NODE_ENV=production yarn build",
+    "build-ipk": "yarn build-prod && bash tools/build.sh",
+    "install-ipk": "yarn build-ipk && bash tools/install.sh",
     "run-webos": "yarn build-prod && react-tv-cli run-webos"
   },
   "license": "MIT",
@@ -31,7 +33,6 @@
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
-    "3d-react-carousal": "^2.0.1",
     "babel-preset-es2015": "^6.24.1",
     "hls.js": "^0.11.0",
     "jquery": "^3.3.1",

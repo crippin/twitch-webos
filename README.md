@@ -1,5 +1,13 @@
 # twitch-webos
 
+## Links
+
+[LG webOS TV SDK](https://webostv.developer.lge.com/sdk/installation/)
+
+[react-tv/react-tv-cli](https://github.com/raphamorim/react-tv)
+
+[yarn](https://yarnpkg.com/lang/en/)
+
 ## Install
 
 ```bash
@@ -13,9 +21,18 @@ $ yarn
 $ yarn start
 ```
 
-## Install to TV
+## Build bundle.js
 
 ```bash
 $ yarn build-prod
-$ react-tv-cl run-webos LG-tv
+```
+## Build ipk
+
+```bash
+$ yarn build-ipk
+```
+
+## Install to tv
+```bash
+$ ares-isntall app -d tv-name
 ```

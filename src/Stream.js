@@ -27,9 +27,7 @@ export default class Stream extends React.Component {
     let hls = new Hls();
     if(Hls.isSupported()) {
       hls.attachMedia(video);
-      // hls.on(Hls.Events.MANIFEST_PARSED,function() {
-      // });
     }
-      return video
+    return video
   }
 }
