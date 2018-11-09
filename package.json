@@ -5,7 +5,7 @@
     "files": [
       "index.html",
       "bundle.js",
-      "style.css"
+      "resource/style.css"
     ]
   },
   "scripts": {
@@ -13,6 +13,8 @@
     "start": "webpack-dev-server --progress --colors",
     "build": "webpack",
     "build-prod": "cross-env NODE_ENV=production yarn build",
+    "build-ipk": "yarn build-prod && bash tools/build.sh",
+    "install-ipk": "yarn build-ipk && bash tools/install.sh",
     "run-webos": "yarn build-prod && react-tv-cli run-webos"
   },
   "license": "MIT",
@@ -36,6 +38,7 @@
     "jquery": "^3.3.1",
     "react-burger-menu": "^2.5.4",
     "react-dom": "^16.6.0",
+    "react-router-dom": "^4.3.1",
     "twitch-get-stream": "^0.5.0"
   }
 }

@@ -1,0 +1,11 @@
+{
+  "id": "twitch.tv.app",
+  "title": "twitch-webos",
+  "vendor": "A Mityu Company",
+  "version": "0.0.1",
+  "type": "web",
+  "main": "index.html",
+  "icon": "resource/icon.png",
+  "uiRevision": 2,
+  "largeIcon": "resource/icon-large.png"
+}
