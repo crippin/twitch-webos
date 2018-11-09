@@ -1,4 +1,7 @@
 # twitch-webos
+[![Build Status](https://travis-ci.org/crippin/twitch-webos.svg?branch=master)](https://travis-ci.org/crippin/twitch-webos)
+[![dependencies Status](https://david-dm.org/crippin/twitch-webos/status.svg)](https://david-dm.org/crippin/twitch-webos)
+[![gh-pages](https://d2.alternativeto.net/dist/icons/github-pages_100202.png?width=22&height=22&mode=crop&upscale=false)](https://crippin.github.io/twitch-webos/)
 
 ## Links
 
