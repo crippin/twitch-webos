@@ -92,3 +92,65 @@ body {
     float:left; /* add this */
     border: 1px solid red;
 }
+
+.container {
+    margin: auto;
+    position: relative;
+    width: 80%;
+    text-shadow: 0 0 5px rgba(255,255,255,1);
+    color: black;
+    font-size: 2em;
+    font: 'Times New Roman Bold',
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.display_name {
+  transition: .5s ease;
+  position: absolute;
+  left: 50%;
+}
+
+.status {
+  transition: .5s ease;
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+}
+
+.container:hover .image {
+  opacity: 1;
+}
+
+.container:hover .middle {
+  opacity: 0;
+}
+
+.container:hover .status {
+  opacity: 0;
+}
+
+.container:hover .display_name {
+  opacity: 0;
+}
+
+.text {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}

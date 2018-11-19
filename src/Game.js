@@ -20,7 +20,7 @@ export default class Game extends React.Component {
       var imgList = this.state.streams.map(function (stream, index) {
         return (
           <div id="gamelist">
-            <Link to={'/stream/' + stream.channel.display_name}>
+            <Link to={'/stream/' + stream.channel.name}>
               <img src={stream.channel.logo} />
             </Link>
           </div>
