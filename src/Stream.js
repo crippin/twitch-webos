@@ -20,6 +20,8 @@ export default class Stream extends React.Component {
     const defaultProps = {
           poster: this.props.poster,
           src: this.state.src,
+          width: '1920px',
+          height: '1080px',
           controls: true,
           autoplay: false,
           preload: true,

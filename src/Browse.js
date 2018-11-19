@@ -1,8 +1,17 @@
 import React from 'react';
 import { GetTopGames } from './TwitchAPI'
 import Game from './Game'
+import { withFocusable, withNavigation } from 'react-tv-navigation'
 import { Link } from "react-router-dom";
 
+const Item = ({focused, setFocus, focusPath, game}) => {
+  focused = (focused) ? 'focused' : 'unfocused'
+  return (
+    <Link to={'/game/' + game.name}>
+      <img src={game.box.large} id="gamelist" className={focused} onClick={() => { setFocus(); console.log("ALMAAA"); }}/>
+    </Link>
+  )
+}
 
 export default class Browse extends React.Component {
   constructor(props) {
@@ -12,18 +21,15 @@ export default class Browse extends React.Component {
     }
     this.setState = this.setState.bind(this)
   }
-  componentDidMount() {
+  componentWillMount() {
     GetTopGames(this.setState);
   }
   render(){
     if (this.state.topGames) {
       var imgList = this.state.topGames.map(function (game, index) {
+        const FocusableItem = withFocusable(Item)
         return (
-          <div id="gamelist">
-            <Link to={'/game/' + game.name}>
-              <img src={game.box.large} />
-            </Link>
-          </div>
+          <FocusableItem game={game} focusPath={game.name} key={game.name + index}/>
         );
       });
       return(

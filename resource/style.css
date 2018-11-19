@@ -1,103 +1,76 @@
-html,
 body {
-  margin: 0;
-  background: #262626;
+  background: #f1f1f1;
   color: #4AD0EC;
   font-family: Helvetica;
   letter-spacing: 0.15em;
+  width: 100vw;
+  height: 100vh;
   margin: 0 auto;
 }
 
-#App {
-  font-family: sans-serif;
+div {
+  box-sizing: border-box;
 }
 
-#page-wrap {
+#root, #container {
+  padding: 0 1vw;
+  overflow: hidden;
+}
+
+h1 {
   text-align: center;
 }
 
-/* Individual item */
-.bm-item {
-  display: inline-block;
-
-  /* Our sidebar item styling */
-  text-decoration: none;
-  color: #d1d1d1;
-  transition: color 0.2s;
+.focused, .unfocused {
+  background: #6441a5;
+  padding: 12px;
+  width: 400px;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
-/* Change color on hover */
-.bm-item:hover {
+.focused {
+  background: #b9a3e3;
+  color: black;
+}
+
+.image img {
+  width: 100%;
+}
+
+.btn-unfocused, .btn-focused {
+  padding: 8px;
+  font-weight: bold;
   color: white;
+  background: gray;
 }
 
-/* The rest copied directly from react-burger-menu docs */
-
-/* Position and sizing of burger button */
-.bm-burger-button {
-  position: fixed;
-  width: 106px;
-  height: 100px;
-  left: 106px;
-  top: 46px;
+.btn-focused {
+  background: red;
 }
 
-/* Color/shape of burger icon bars */
-.bm-burger-bars {
-  background: #373a47;
+.navigation {
+  display: flex;
 }
 
-/* Position and sizing of clickable cross button */
-.bm-cross-button {
-  height: 100px;
-  width: 100px;
+.program-list {
+  display: flex;
+  width: 60%;
+  flex-wrap: wrap;
+  padding-left: 8px;
+  justify-content: space-evenly;
 }
 
-/* Color/shape of close button cross */
-.bm-cross {
-  background: #bdc3c7;
-}
-
-/* General sidebar styles */
-.bm-menu {
-  background: #373a47;
-  padding: 2.5em 4.5em 0;
-  font-size: 1.45em;
-}
-
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: #373a47;
-}
-
-/* Wrapper for item list */
-.bm-item-list {
-  color: #b8b7ad;
-  font-size: 2em;
-}
-
-/* Styling of overlay */
-.bm-overlay {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.channel-name {
-  font-size: 2em;
-}
-
-#wrapper {
-    overflow: hidden; /* add this to contain floated children */
-}
-#gamelist {
-    float:left; /* add this */
-    border: 1px solid red;
+:focus {
+  outline: 1px;
 }
 
 .container {
     margin: auto;
     position: relative;
-    width: 80%;
-    text-shadow: 0 0 5px rgba(255,255,255,1);
+    width: 100%;
+    text-decoration-color: white;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
     color: black;
     font-size: 2em;
     font: 'Times New Roman Bold',
@@ -146,11 +119,4 @@ body {
 
 .container:hover .display_name {
   opacity: 0;
-}
-
-.text {
-  background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
-  padding: 16px 32px;
 }
