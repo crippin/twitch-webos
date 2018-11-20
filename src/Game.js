@@ -7,7 +7,7 @@ const Item = ({focused, setFocus, focusPath, stream}) => {
   focused = (focused) ? 'focused' : 'unfocused'
   return (
     <Link to={'/stream/' + stream.channel.name}>
-      <img src={stream.channel.logo} id="gamelist" className={focused} onClick={() => { setFocus(); console.log("ALMAAA"); }}/>
+      <img src={stream.channel.logo} id="gamelist" className={focused} onClick={() => { setFocus() }}/>
     </Link>
   )
 }
