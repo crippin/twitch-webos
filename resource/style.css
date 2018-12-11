@@ -2,9 +2,6 @@ body {
   background: #f1f1f1;
   color: #4AD0EC;
   font-family: Helvetica;
-  letter-spacing: 0.15em;
-  width: 100vw;
-  height: 100vh;
   margin: 0 auto;
 }
 
@@ -22,7 +19,6 @@ h1 {
 }
 
 .focused, .unfocused {
-  background: #6441a5;
   padding: 12px;
   width: 400px;
   margin-top: 20px;
@@ -38,27 +34,8 @@ h1 {
   width: 100%;
 }
 
-.btn-unfocused, .btn-focused {
-  padding: 8px;
-  font-weight: bold;
-  color: white;
-  background: gray;
-}
-
-.btn-focused {
-  background: red;
-}
-
 .navigation {
   display: flex;
-}
-
-.program-list {
-  display: flex;
-  width: 60%;
-  flex-wrap: wrap;
-  padding-left: 8px;
-  justify-content: space-evenly;
 }
 
 :focus {
@@ -119,4 +96,21 @@ h1 {
 
 .container:hover .display_name {
   opacity: 0;
+}
+ #nav {
+   margin-left: -20px;
+   margin-top: -22px;
+   width:100px;
+ }
+ #content {
+   margin-left:100px;
+ }
+.hover, .unhover {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.hover {
+  background: #b9a3e3;
+  color: black;
 }

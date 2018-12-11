@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export PATH=${PATH}:${LG_WEBOS_TV_SDK_HOME}/CLI/bin/
 TV="[LG]_webOS_TV_UK6300MLB"
 FILE=`find build -name '*.ipk'`
 FILE_NAME=${FILE##*/}

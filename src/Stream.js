@@ -1,7 +1,39 @@
 import React from 'react';
 import { GetStreamFromChannel, GetStreamDataFromChannel } from './TwitchAPI'
+import { withFocusable, withNavigation } from 'react-tv-navigation'
 const Hls = require('hls.js');
 
+
+function exitFullScreen() {
+  if (document.exitFullscreen) {
+      document.exitFullscreen();
+  } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+  }
+}
+
+function toggleFullScreen() {
+  var video = document.getElementById("video");
+  if (video.webkitRequestFullscreen){
+      if (document.webkitFullscreenElement) {
+          document.webkitCancelFullScreen();
+      } else {
+          video.webkitRequestFullscreen();
+      }
+  } else {
+      console.log("Fullscreen API is not supported");
+  }
+}
+const Item = ({focused, focusPath, game}) => {
+  focused = (focused) ? 'focused' : 'unfocused'
+  return (
+      <button id='btnFullScreen' className={focused} onClick={() => toggleFullScreen()}><i class={'fa fa-arrows-alt'} ></i></button>
+  )
+}
 export default class Stream extends React.Component {
   constructor(props) {
     super(props);
@@ -16,8 +48,10 @@ export default class Stream extends React.Component {
     GetStreamDataFromChannel(id, this.setState)
     GetStreamFromChannel(id, this.setState);
   }
+
   render(){
     const defaultProps = {
+          id: 'video',
           poster: this.props.poster,
           src: this.state.src,
           width: '1920px',
@@ -29,8 +63,10 @@ export default class Stream extends React.Component {
     }
     let video = React.createElement('video', defaultProps)
     let hls = new Hls();
+    const FocusableItem = withFocusable(Item)
     if(Hls.isSupported()) {
       hls.attachMedia(video);
+
     }
     if(this.state.data) {
       return (
@@ -44,6 +80,7 @@ export default class Stream extends React.Component {
           </div>
           <div class="status">
             <p>{this.state.data.status}</p>
+            <FocusableItem focusPath="fullscreen"/>
           </div>
         </div>
       );
