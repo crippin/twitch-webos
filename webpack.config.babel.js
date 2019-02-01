@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const sourcePath = path.join(__dirname, 'src');
 
 const config = {
@@ -24,11 +24,22 @@ const config = {
     ],
   },
   plugins: [],
+  /**
+   * webpack 4
+   */
+   optimization: {
+     minimizer: [new UglifyJsPlugin()],
+   },
+  mode: 'production',
+  performance: {
+    maxEntrypointSize: 1120000,
+    maxAssetSize: 1120000,
+  }
 };
 
 if (process.env.NODE_ENV === 'production') {
   config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin()
+    new UglifyJsPlugin()
   );
   config.plugins.push(
     new webpack.DefinePlugin({

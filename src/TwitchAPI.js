@@ -1,5 +1,6 @@
 import $ from 'jquery';
 // import { OAuth } from './config'
+var OAuth;
 const Client_ID = '9x983jxyvp99rql42txrgaep1i9fct';
 var twitchStreams = require('twitch-get-stream')(Client_ID); // twitch now ENFORCES client id usage, so this is required.
 
@@ -13,6 +14,32 @@ exports.GetFollowed = function (callback){
     },
     success: function(json) {
       callback({streams: json.streams})
+  }});
+}
+
+exports.GetStreamDataFromChannel = function (id, callback){
+  $.ajax({
+    type: 'GET',
+    url: 'https://api.twitch.tv/kraken/channels/' + id,
+    headers: {
+      'Client-ID': Client_ID,
+    },
+    success: function(json) {
+      console.log(json);
+      callback({data: json})
+  }});
+}
+
+exports.Search = function (id, callback){
+  $.ajax({
+    type: 'GET',
+    url: 'https://api.twitch.tv/kraken/search/channels?query=' + id,
+    headers: {
+      'Client-ID': Client_ID,
+    },
+    success: function(json) {
+      console.log(json);
+      callback({streams: json.channels})
   }});
 }
 

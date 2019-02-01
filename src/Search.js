@@ -1,18 +1,18 @@
 import React from 'react';
-import { GetStreamsFromGame } from './TwitchAPI';
+import { Search as GetResult } from './TwitchAPI';
 import { Link } from "react-router-dom";
 import { withFocusable, withNavigation } from 'react-tv-navigation'
 
 const Item = ({focused, setFocus, focusPath, stream}) => {
   focused = (focused) ? 'focused' : 'unfocused'
   return (
-    <Link to={'/stream/' + stream.channel.name}>
-      <img src={stream.channel.logo} id="gamelist" className={focused} onClick={() => { setFocus() }}/>
+    <Link to={'/stream/' + stream.name}>
+      <img src={stream.logo} id="gamelist" className={focused} onClick={() => { setFocus() }}/>
     </Link>
   )
 }
 
-export default class Game extends React.Component {
+export default class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,24 +21,30 @@ export default class Game extends React.Component {
     this.setState = this.setState.bind(this)
   }
   componentWillMount () {
-    console.log(document.URL);
-
     const { id } = this.props.match.params
-    GetStreamsFromGame(id, this.setState);
+    console.log(id);
+    GetResult(id, this.setState)
   }
   render(){
     if (this.state.streams) {
+      console.log(this.state.streams);
       var imgList = this.state.streams.map(function (stream, index) {
-        const FocusableItem = withFocusable(Item)
-        return (
-          <FocusableItem stream={stream} focusPath={stream.channel.name} key={stream.channel.name + index}/>
-        );
+        if(stream.status){
+          const FocusableItem = withFocusable(Item)
+          return (
+            <FocusableItem stream={stream} focusPath={stream.name} key={stream.name + index}/>
+          );
+        }
       });
       return(
       <div id="wrapper">
         {imgList}
       </div>);
     }
-    return "ALMAFA"
+    return (
+      <div id="demo" width="800" height="1000" >
+        "ALMAFA"
+      </div>
+    );
   }
 }
