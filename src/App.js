@@ -4,8 +4,10 @@ import { withNavigation } from 'react-tv-navigation'
 import Browse from './Browse'
 import Game from './Game'
 import Stream from './Stream'
+import Search from './Search'
 import Follow from './Follow'
 import Sidebar from './Sidebar';
+import palmServiceBridgeMock from 'palmservicebridge-mock';
 import { BrowserRouter as Router, Route, Link, Switch, Redirect } from "react-router-dom";
 
 function App({currentFocusPath}) {
@@ -20,6 +22,7 @@ function App({currentFocusPath}) {
             <Route exact path="/follow" component={Follow} />
             <Route exact path="/game/:id" component={Game}/>
             <Route exact path="/stream/:id" component={Stream}/>
+            <Route exact path="/search/:id" component={Search}/>
           </Switch>
         </div>
       </div>
