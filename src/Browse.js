@@ -3,6 +3,7 @@ import { GetTopGames } from './TwitchAPI'
 import Game from './Game'
 import { withFocusable, withNavigation } from 'react-tv-navigation'
 import { Link } from "react-router-dom";
+import Button from '@material-ui/core/Button'
 
 const Item = ({focused, setFocus, focusPath, game}) => {
   focused = (focused) ? 'focused' : 'unfocused'
