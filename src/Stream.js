@@ -54,8 +54,6 @@ export default class Stream extends React.Component {
           id: 'video',
           poster: this.props.poster,
           src: this.state.src,
-          width: '1920px',
-          height: '1080px',
           controls: true,
           autoplay: false,
           preload: true,
@@ -71,16 +69,18 @@ export default class Stream extends React.Component {
     if(this.state.data) {
       return (
         <div class="container">
+          <div class="streamInfo">
+          <img height="100" src={this.state.data.logo}></img>
           <div class="display_name">
             {this.state.data.display_name}
           </div>
-          {video}
-          <div class="middle">
-            <img height="100" src={this.state.data.logo}></img>
+        </div>
+          <div class="videoWrapper">
+            {video}
+            <FocusableItem focusPath="fullscreen"/>
           </div>
           <div class="status">
             <p>{this.state.data.status}</p>
-            <FocusableItem focusPath="fullscreen"/>
           </div>
         </div>
       );

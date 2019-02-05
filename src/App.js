@@ -9,13 +9,23 @@ import Follow from './Follow'
 import Sidebar from './Sidebar';
 import palmServiceBridgeMock from 'palmservicebridge-mock';
 import { BrowserRouter as Router, Route, Link, Switch, Redirect } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
 function App({currentFocusPath}) {
   return (
     <Router>
       <div class="wrapper">
-        <Sidebar />
+        <AppBar class="header">
+          <Toolbar>
+            <Typography variant="h4" color="inherit" >
+              Twitch
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <div id="content">
+          <Sidebar />
           <Redirect from="" exact to="/" />
           <Switch>
             <Route exact path="/" component={Browse} />

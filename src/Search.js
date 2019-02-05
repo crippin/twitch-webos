@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { withFocusable, withNavigation } from 'react-tv-navigation'
 
 const Item = ({focused, setFocus, focusPath, stream}) => {
-  focused = (focused) ? 'focused' : 'unfocused'
+  focused = (focused) ? 'imgfocused' : 'imgunfocused'
   return (
     <Link to={'/stream/' + stream.name}>
       <img src={stream.logo} id="gamelist" className={focused} onClick={() => { setFocus() }}/>

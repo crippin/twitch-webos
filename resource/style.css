@@ -10,8 +10,12 @@ div {
 }
 
 #root, #container {
-  padding: 0 1vw;
-  overflow: hidden;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 h1 {
@@ -19,19 +23,19 @@ h1 {
 }
 
 .focused, .unfocused {
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+.imgfocused, .imgunfocused {
   padding: 12px;
-  width: 400px;
   margin-top: 20px;
   margin-left: 20px;
 }
 
-.focused {
+.focused, .imgfocused {
   background: #b9a3e3;
-  color: black;
-}
-
-.image img {
-  width: 100%;
 }
 
 .navigation {
@@ -42,21 +46,37 @@ h1 {
   outline: 1px;
 }
 
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  z-index: 1;
+  position: relative;
+  background: #483d8b;
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+  color: white;
+}
+
 .container {
-    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
     position: relative;
-    width: 100%;
     text-decoration-color: white;
     text-shadow: 0 0 5px rgba(0,0,0,0.5);
     color: black;
     font-size: 2em;
-    font: 'Times New Roman Bold',
+    font: 'Times New Roman Bold';
+    padding-left: 20px;
+    padding-top: 20px;
 }
 
 .image {
   display: block;
-  width: 100%;
-  height: auto;
+  height: 500px;
   transition: .5s ease;
   backface-visibility: hidden;
 }
@@ -64,47 +84,72 @@ h1 {
 .middle {
   transition: .5s ease;
   opacity: 1;
-  position: absolute;
   top: 0;
   left: 0;
 }
 
 .display_name {
   transition: .5s ease;
-  position: absolute;
   left: 50%;
 }
 
 .status {
   transition: .5s ease;
+  flex: 0 0 100%;
+}
+
+.streamInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  flex: 0 0 100%;
+}
+
+.videoWrapper {
+  position: relative;
+  display: table;
+}
+
+.searchForm {
+  align-items: center;
+  display: flex;
+  color: black;
+  font-size: 22px;
+  padding-left: 20px;
+  padding-top: 20px;
+  width: 100%;
+}
+.formClass {
+  width: 50%;
+}
+
+.searchIcon {
+  display: flex;
+  font-size: 78px;
+  padding-left: 10px;
+  color: #6034b2;
+}
+
+.searchInput {
+  width: 100%;
+}
+
+#btnFullScreen{
+  background: transparent;
+  border: 0;
   position: absolute;
-  bottom: 10%;
+  bottom: 0;
   right: 0;
 }
-
-.container:hover .image {
-  opacity: 1;
+#btnFullScreen.focused {
+  background: rgba(129, 95, 192, 0.5);
 }
 
-.container:hover .middle {
-  opacity: 0;
+#content {
+  flex: 1;
+  display: flex;
+  overflow: auto;
 }
-
-.container:hover .status {
-  opacity: 0;
-}
-
-.container:hover .display_name {
-  opacity: 0;
-}
- #nav {
-   margin-left: -20px;
-   margin-top: -22px;
-   width:100px;
- }
- #content {
-   margin-left:100px;
- }
 .hover, .unhover {
   margin-top: 20px;
   margin-left: 20px;
@@ -112,5 +157,4 @@ h1 {
 
 .hover {
   background: #b9a3e3;
-  color: black;
 }
