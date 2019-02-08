@@ -19,9 +19,7 @@ function App({currentFocusPath}) {
       <div class="wrapper">
         <AppBar class="header">
           <Toolbar>
-            <Typography variant="h4" color="inherit" >
-              Twitch
-            </Typography>
+            <p id="headerLogo">Twitch</p>
           </Toolbar>
         </AppBar>
         <div id="content">

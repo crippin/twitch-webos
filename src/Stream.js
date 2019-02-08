@@ -1,45 +1,71 @@
 import React from 'react';
-import { GetStreamFromChannel, GetStreamDataFromChannel } from './TwitchAPI'
+import { GetStreamFromChannel, GetStreamDataFromChannel, SearchGame } from './TwitchAPI'
 import { withFocusable, withNavigation } from 'react-tv-navigation'
 const Hls = require('hls.js');
 
-
-function exitFullScreen() {
-  if (document.exitFullscreen) {
-      document.exitFullscreen();
-  } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-  } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-  } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
+function toggleFullScreen(setState, e) {
+  console.log(e);
+  if((e && e.keyCode === 13) || e == 'undefined'){
+    e.preventDefault();
+    var video = document.getElementById("vidi");
+    if (video.webkitRequestFullscreen){
+        if (document.webkitFullscreenElement) {
+            document.webkitCancelFullScreen();
+            setState({fullscreen: false})
+        } else {
+            video.webkitRequestFullscreen();
+            setState({fullscreen: true})
+        }
+    } else {
+        console.log("Fullscreen API is not supported");
+    }
+  }
+}
+function toogleMute(setState, e) {
+  console.log(e);
+  if((e && e.keyCode === 13) || e == 'undefined'){
+    e.preventDefault();
+    var video = document.getElementById("video");
+    video.muted = !video.muted;
+    setState({mute:video.muted})
   }
 }
 
-function toggleFullScreen() {
-  var video = document.getElementById("video");
-  if (video.webkitRequestFullscreen){
-      if (document.webkitFullscreenElement) {
-          document.webkitCancelFullScreen();
-      } else {
-          video.webkitRequestFullscreen();
-      }
-  } else {
-      console.log("Fullscreen API is not supported");
-  }
-}
-const Item = ({focused, focusPath, game}) => {
+const FullScreenBtn = ({focused, focusPath, fas, setState}) => {
   focused = (focused) ? 'focused' : 'unfocused'
   return (
-      <button id='btnFullScreen' className={focused} onClick={() => toggleFullScreen()}><i class={'fa fa-arrows-alt'} ></i></button>
+      <button id='btnFullScreen'
+        className={'controlBtns ' + focused}
+        onClick={() => toogleFullScreen(setState)}
+        onKeyDown={(e) => toggleFullScreen(setState, e)}
+      >
+        <i class={fas} />
+      </button>
   )
 }
+
+const MuteBtn = ({focused, focusPath, fas, setState}) => {
+  focused = (focused) ? 'focused' : 'unfocused'
+  return (
+      <button id='btnMute'
+        className={'controlBtns ' + focused}
+        onClick={() => toogleMute(setState)}
+        onKeyDown={(e) => toogleMute(setState, e)}
+      >
+        <i class={fas} />
+      </button>
+  )
+}
+
 export default class Stream extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       src: null,
       data: null,
+      games: null,
+      mute: false,
+      fullscreen: false,
     }
     this.setState = this.setState.bind(this)
   }
@@ -50,37 +76,50 @@ export default class Stream extends React.Component {
   }
 
   render(){
+    var muteBtnFas = this.state.mute ? "fas fa-volume-up" : "fas fa-volume-mute"
+    var fullScreenBtnFas = this.state.fullscreen ? "fas fa-compress-arrows-alt" : "fas fa-arrows-alt"
     const defaultProps = {
           id: 'video',
           poster: this.props.poster,
-          src: this.state.src,
-          controls: true,
+          src: this.state.src?this.state.src[0].url:null,
+          controls: false,
           autoplay: false,
           preload: true,
           class: 'image',
     }
     let video = React.createElement('video', defaultProps)
     let hls = new Hls();
-    const FocusableItem = withFocusable(Item)
+    var FocusableFSBtn= withFocusable(FullScreenBtn)
+    var FocusableMuteBtn= withFocusable(MuteBtn)
     if(Hls.isSupported()) {
       hls.attachMedia(video);
-
     }
     if(this.state.data) {
+      if(!this.state.games) {
+        SearchGame(this.state.data.game, this.setState);
+      }
       return (
-        <div class="container">
+        <div class="streamContainer">
           <div class="streamInfo">
-          <img height="100" src={this.state.data.logo}></img>
+          <img height="128" src={this.state.data.channel.logo}></img>
           <div class="display_name">
-            {this.state.data.display_name}
+            {this.state.data.channel.display_name}
           </div>
         </div>
           <div class="videoWrapper">
-            {video}
-            <FocusableItem focusPath="fullscreen"/>
+            <div id="vidi">
+              {video}
+            <FocusableMuteBtn focusPath="mute" fas={muteBtnFas} setState={this.setState} />
+            <FocusableFSBtn focusPath="fullscreen" fas={fullScreenBtnFas} setState={this.setState}/>
+          </div>
           </div>
           <div class="status">
-            <p>{this.state.data.status}</p>
+            <img height="256" src={this.state.games?this.state.games[0].box.large:''}></img>
+            {this.state.data.channel.status}
+            <br/>
+            Viewers:
+
+            {this.state.data.viewers}
           </div>
         </div>
       );

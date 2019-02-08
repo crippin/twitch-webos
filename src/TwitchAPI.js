@@ -20,13 +20,13 @@ exports.GetFollowed = function (callback){
 exports.GetStreamDataFromChannel = function (id, callback){
   $.ajax({
     type: 'GET',
-    url: 'https://api.twitch.tv/kraken/channels/' + id,
+    url: 'https://api.twitch.tv/kraken/streams/' + id,
     headers: {
       'Client-ID': Client_ID,
     },
     success: function(json) {
       console.log(json);
-      callback({data: json})
+      callback({data: json.stream})
   }});
 }
 
@@ -40,6 +40,18 @@ exports.Search = function (id, callback){
     success: function(json) {
       console.log(json);
       callback({streams: json.channels})
+  }});
+}
+exports.SearchGame = function (id, callback){
+  $.ajax({
+    type: 'GET',
+    url: 'https://api.twitch.tv/kraken/search/games?query=' + id + '&type=suggest',
+    headers: {
+      'Client-ID': Client_ID,
+    },
+    success: function(json) {
+      console.log(json);
+      callback({games: json.games})
   }});
 }
 
@@ -73,9 +85,9 @@ exports.GetStreamsFromGame = function (id, callback){
 exports.GetStreamFromChannel = function (stream, callback) {
   twitchStreams.get(stream)
     .then((data) => {
-      //data[0] == source quality
-      callback({src: data[0].url})
+      console.log(data);
+      callback({src: data})
     }, (reason) => {
-      callback({src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'})
+      callback({src: [{url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}]})
     });
 }
