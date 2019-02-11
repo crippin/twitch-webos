@@ -66,7 +66,7 @@ class Browse extends React.Component {
         );
       });
       return(
-        <main className={this.classes.content} id="wrapper" >
+        <main className={this.classes.content} id="browseContent" >
           <div class='searchForm'>
             <form class='formClass'
               onSubmit={(evt) => {

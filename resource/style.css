@@ -1,3 +1,26 @@
+/* Scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
 body {
   background: no-repeat url("halftone-2484003_1920.jpg");
   color: #4AD0EC;
@@ -33,10 +56,12 @@ h1 {
 }
 
 .focused, .unfocused {
+  border-radius: 5px;
   display: flex;
   padding: 8px;
 }
 .imgfocused, .imgunfocused {
+  border-radius: 5px;
   padding: 12px;
   margin-top: 20px;
   margin-left: 20px;
@@ -58,6 +83,10 @@ h1 {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+
+#browseContent {
+  overflow: auto;
 }
 
 .listPictures {
@@ -103,6 +132,7 @@ h1 {
   display: block;
   transition: .5s ease;
   backface-visibility: hidden;
+  position: absolute;
 }
 
 #vidi {
@@ -142,6 +172,7 @@ h1 {
 .videoWrapper {
   position: relative;
   display: table;
+  width: 100%;
 }
 
 .searchForm {
@@ -161,23 +192,34 @@ h1 {
   display: flex;
   font-size: 78px;
   padding-left: 10px;
-  color: #6034b2;
+  color: rgba(255,255,255,0.7);
 }
 
 .searchInput {
   width: 100%;
 }
 
+.videoControl {
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 5px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 50%;
+  left: 25%;
+}
+
 .controlBtns {
+  display: flex;
   background: transparent;
   border: 0;
-  position: absolute;
   bottom: 10px;
   color: #6034b2;
 }
 
 .controlBtns.focused {
   background: rgba(129, 95, 192, 0.5);
+  border-radius: 5px;
 }
 
 #btnFullScreen{
@@ -186,6 +228,10 @@ h1 {
 
 #btnMute {
   left: 0;
+}
+
+#placeholder {
+  width: 100%;
 }
 
 #content {

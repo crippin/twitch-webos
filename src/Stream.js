@@ -79,10 +79,10 @@ export default class Stream extends React.Component {
     var muteBtnFas = this.state.mute ? "fas fa-volume-up" : "fas fa-volume-mute"
     var fullScreenBtnFas = this.state.fullscreen ? "fas fa-compress-arrows-alt" : "fas fa-arrows-alt"
     const defaultProps = {
+          class: 'video',
           id: 'video',
           poster: this.props.poster,
           src: this.state.src?this.state.src[0].url:null,
-          controls: false,
           autoplay: false,
           preload: true,
           class: 'image',
@@ -101,17 +101,18 @@ export default class Stream extends React.Component {
       return (
         <div class="streamContainer">
           <div class="streamInfo">
-          <img height="128" src={this.state.data.channel.logo}></img>
-          <div class="display_name">
-            {this.state.data.channel.display_name}
+            <img height="128" src={this.state.data.channel.logo} />
+            <div class="display_name">
+              {this.state.data.channel.display_name}
+            </div>
           </div>
-        </div>
-          <div class="videoWrapper">
-            <div id="vidi">
+          <div class="videoWrapper" id="vidi">
               {video}
-            <FocusableMuteBtn focusPath="mute" fas={muteBtnFas} setState={this.setState} />
-            <FocusableFSBtn focusPath="fullscreen" fas={fullScreenBtnFas} setState={this.setState}/>
-          </div>
+              <div class="videoControl">
+                <FocusableMuteBtn focusPath="mute" fas={muteBtnFas} setState={this.setState} />
+                <div class="controlBtns" id="placeholder" />
+                <FocusableFSBtn focusPath="fullscreen" fas={fullScreenBtnFas} setState={this.setState}/>
+              </div>
           </div>
           <div class="status">
             <img height="256" src={this.state.games?this.state.games[0].box.large:''}></img>
