@@ -35,7 +35,7 @@ export default class Game extends React.Component {
         );
       });
       return(
-      <div id="wrapper">
+      <div class="listPictures">
         {imgList}
       </div>);
     }

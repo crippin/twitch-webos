@@ -78,7 +78,7 @@ class Browse extends React.Component {
             </form>
             <i class="fas fa-search searchIcon" aria-hidden="true"></i>
           </div>
-          <div>
+          <div class="listPictures">
             {imgList}
           </div>
         </main>)

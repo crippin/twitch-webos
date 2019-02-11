@@ -32,7 +32,7 @@ export default class Follow extends React.Component {
         );
       });
       return(
-      <div id="wrapper">
+      <div class="listPictures">
         {imgList}
       </div>);
     }

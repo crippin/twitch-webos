@@ -4,6 +4,7 @@ body {
   font-family: Helvetica;
   margin: 0 auto;
 }
+
 @font-face {
 font-family: 'TwitchFont';
 src: url('font/Twitchy.ttf');
@@ -26,7 +27,6 @@ div {
   top: 0;
   left: 0;
 }
-
 
 h1 {
   text-align: center;
@@ -60,6 +60,10 @@ h1 {
   flex-direction: column;
 }
 
+.listPictures {
+  overflow: overlay;
+}
+
 .header {
   z-index: 1;
   position: relative;
@@ -71,7 +75,7 @@ h1 {
 .container {
     display: flex;
     flex-wrap: wrap;
-    overflow: auto;
+    /* overflow: auto; */
     position: relative;
     text-decoration-color: white;
     text-shadow: 0 0 5px rgba(0,0,0,0.5);
