@@ -13,6 +13,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import FollowIcon from "@material-ui/icons/Bookmarks";
+import ProfileIcon from "@material-ui/icons/AccountCircle";
 import purple from '@material-ui/core/colors/purple';
 import { withFocusable } from 'react-tv-navigation'
 import { Link } from "react-router-dom";
@@ -75,6 +76,7 @@ function SideBar(props) {
         <List>
           <MenuItem focusPath='Browse game' text={'Browse game'} link={'/'} icon={<HomeIcon />} />
           <MenuItem focusPath='Follow' text={'Follow'} link={'/follow'} icon={<FollowIcon />} />
+          <MenuItem focusPath='LogIN' text={'LogIn'} link={'/adduser'} icon={<ProfileIcon />} />
         </List>
         <Divider />
       </Drawer>

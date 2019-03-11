@@ -1,16 +1,16 @@
 import $ from 'jquery';
-// import { OAuth } from './config'
-var OAuth;
+import { OAUTH } from './OAuth'
 const Client_ID = '9x983jxyvp99rql42txrgaep1i9fct';
 var twitchStreams = require('twitch-get-stream')(Client_ID); // twitch now ENFORCES client id usage, so this is required.
 
 exports.GetFollowed = function (callback){
+  console.log(OAUTH);
   $.ajax({
     type: 'GET',
     url: 'https://api.twitch.tv/kraken/streams/followed',
     headers: {
       'Client-ID': Client_ID,
-      'Authorization': 'OAuth ' + OAuth
+      'Authorization': 'OAuth ' + OAUTH
     },
     success: function(json) {
       callback({streams: json.streams})

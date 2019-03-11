@@ -32,15 +32,12 @@ const config = {
    },
   mode: 'production',
   performance: {
-    maxEntrypointSize: 1120000,
-    maxAssetSize: 1120000,
+    maxEntrypointSize: 2120000,
+    maxAssetSize: 2120000,
   }
 };
 
 if (process.env.NODE_ENV === 'production') {
-  config.plugins.push(
-    new UglifyJsPlugin()
-  );
   config.plugins.push(
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
@@ -48,6 +45,9 @@ if (process.env.NODE_ENV === 'production') {
   );
   config.plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
   config.plugins.push(new webpack.HashedModuleIdsPlugin());
+  config.plugins.push(
+    new UglifyJsPlugin()
+  );
 }
 
 module.exports = config;
