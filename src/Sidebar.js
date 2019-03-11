@@ -65,7 +65,6 @@ function SideBar(props) {
   const MenuItem = withFocusable(Item);
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <Drawer
         className={classes.drawer}
         variant="permanent"
