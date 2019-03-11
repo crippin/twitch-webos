@@ -3,19 +3,37 @@ import { GetTopGames } from './TwitchAPI'
 import Game from './Game'
 import { withFocusable, withNavigation } from 'react-tv-navigation'
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  content: {
+    position: 'fixed',
+    left: '280px',
+    top: '62px',
+  }
+});
 
 const Item = ({focused, setFocus, focusPath, game}) => {
-  focused = (focused) ? 'focused' : 'unfocused'
+  focused = (focused) ? 'imgfocused' : 'imgunfocused'
   return (
     <Link to={'/game/' + game.name}>
       <img src={game.box.large} id="gamelist" className={focused} onClick={() => { setFocus() }}/>
     </Link>
   )
 }
+const SearchItem = ({focused, setFocus, focusPath}) => {
+  focused = (focused) ? 'focused' : 'unfocused'
 
-export default class Browse extends React.Component {
+  return (
+      <input name='search' className={'searchInput ' + focused} placeholder='Search streams'/>
+  );
+}
+
+class Browse extends React.Component {
   constructor(props) {
     super(props);
+    this.classes = props
     this.state = {
       topGames: null,
       search: '',
@@ -24,23 +42,17 @@ export default class Browse extends React.Component {
 
 
   }
-  handleSearch(event) {
-    console.log(event.target.value);
-    if(event.target.value.length>3)
-    this.setState({search: event.target.value})
+
+  handleSearch(value) {
+    console.log('event');
+    if(value.length>3)
+    this.setState({search: value})
   }
   componentWillMount() {
     GetTopGames(this.setState);
   }
   render(){
-    const SearchItem = ({focused, setFocus, focusPath, value, onChange, onEnter, onClick}) => {
-      focused = (focused) ? 'focused' : 'unfocused'
-      return (
-      <div className={focused} >
-        <input type="search" id="site-search" value={value} onClick={evt => this.handleSearch(evt)}/>
-      </div>
-      );
-    }
+
     const FocusableSearch = withFocusable(SearchItem)
     console.log(this.state.search.length);
     if(this.state.search.length > 3) {
@@ -54,15 +66,29 @@ export default class Browse extends React.Component {
         );
       });
       return(
-        <div >
-          <div id="wrapper">
-            <div size="100%" >
+        <main className={this.classes.content} id="browseContent" >
+          <div class='searchForm'>
+            <form class='formClass'
+              onSubmit={(evt) => {
+                evt.preventDefault()
+                this.handleSearch(evt.target.search.value)
+              }}
+              >
               <FocusableSearch focusPath={'asd'} value={this.state.search} />
-            </div>
+            </form>
+            <i class="fas fa-search searchIcon" aria-hidden="true"></i>
+          </div>
+          <div class="listPictures">
             {imgList}
           </div>
-        </div>)
+        </main>)
     }
     return "ALMAFA"
   }
 }
+
+Browse.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Browse);
