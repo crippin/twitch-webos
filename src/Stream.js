@@ -94,8 +94,7 @@ export default class Stream extends React.Component {
             <img height="256" src={this.state.games?this.state.games[0].box.large:''}></img>
             {this.state.data.channel.status}
             <br/>
-            Viewers:
-
+            Viewers:&nbsp;&nbsp;
             {this.state.data.viewers}
           </div>
         </div>

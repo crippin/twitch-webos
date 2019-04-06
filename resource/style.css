@@ -62,7 +62,7 @@ h1 {
 }
 .imgfocused, .imgunfocused {
   border-radius: 5px;
-  padding: 12px;
+  padding: 8px;
   margin-top: 20px;
   margin-left: 20px;
 }
@@ -118,7 +118,7 @@ h1 {
 .streamContainer {
   padding-left: 20px;
   padding-top: 20px;
-  color: black;
+  color: white;
   text-shadow: 0 0 5px rgba(0,0,0,0.5);
   font-size: 2em;
   font: 'Times New Roman Bold';
