@@ -11,7 +11,7 @@ const config = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
-    modules: [sourcePath, path.resolve(__dirname, 'node_modules')],
+    modules: [sourcePath, path.resolve(__dirname, 'node_modules'), 'node_modules'],
   },
   module: {
     rules: [
