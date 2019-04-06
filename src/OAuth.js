@@ -23,9 +23,6 @@ firebase.auth().signInAnonymously()
   });
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log('------------------');
-    console.log(user.uid);
-    console.log('------------------');
     db = firebase.firestore();
     docRef = db.collection("users").doc(user.uid)
     docRef.get()

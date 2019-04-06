@@ -2,26 +2,29 @@ import React from 'react';
 import { withFocusable, withNavigation } from 'react-tv-navigation'
 import {docRef, setOAuth, OAUTH} from './OAuth'
 
+
 export default class AddTwitchUser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { code: generateCode() }
+    this.state = { code: "" }
   }
   componentWillMount () {
     if(docRef){
       docRef.get()
         .then((doc) => {
           if (!doc.exists) {
+            this.setState({code: generateCode()})
             docRef.set({
               ActivateME: this.state.code
             });
-            console.log(' --------------------------- ');
-            console.log(' |                         | ');
-            console.log(' | PLEASE ACTIVATE YOUR TV | ');
-            console.log(` |     CODE:  ${this.state.code}        | `);
-            console.log(' --------------------------- ');
-          } else {
+            showOnConsole(this.state.code)
+          } else if (doc.data().ActivateME) {
+            this.setState({code: doc.data().ActivateME})
+            showOnConsole(this.state.code)
+          } else if (doc.data().OAUTH != undefined) {
             setOAuth(doc.data().OAUTH);
+          } else {
+            this.setState({code: generateCode()})
           }
         });
     }
@@ -31,6 +34,9 @@ export default class AddTwitchUser extends React.Component {
       return (
         <div>
           READYTOGOOGOGOGOGO
+          {setTimeout(() => {
+            this.props.history.push('/follow')
+          },5000)}
         </div>
       )
     }
@@ -43,6 +49,7 @@ export default class AddTwitchUser extends React.Component {
     );
   }
 }
+
 function generateCode() {
   var out = "";
   const POSSIBLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -51,4 +58,12 @@ function generateCode() {
     out += POSSIBLE.charAt(Math.random() * POSSIBLE.length)
   }
   return out;
+}
+
+function showOnConsole(code) {
+  console.log(' --------------------------- ');
+  console.log(' |                         | ');
+  console.log(' | PLEASE ACTIVATE YOUR TV | ');
+  console.log(` |     CODE:  ${code}        | `);
+  console.log(' --------------------------- ');
 }

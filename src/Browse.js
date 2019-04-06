@@ -5,6 +5,7 @@ import { withFocusable, withNavigation } from 'react-tv-navigation'
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import FImage from './component/FImage'
 
 const styles = theme => ({
   content: {
@@ -14,14 +15,7 @@ const styles = theme => ({
   }
 });
 
-const Item = ({focused, setFocus, focusPath, game}) => {
-  focused = (focused) ? 'imgfocused' : 'imgunfocused'
-  return (
-    <Link to={'/game/' + game.name}>
-      <img src={game.box.large} id="gamelist" className={focused} onClick={() => { setFocus() }}/>
-    </Link>
-  )
-}
+
 const SearchItem = ({focused, setFocus, focusPath}) => {
   focused = (focused) ? 'focused' : 'unfocused'
 
@@ -39,8 +33,6 @@ class Browse extends React.Component {
       search: '',
     }
     this.setState = this.setState.bind(this)
-
-
   }
 
   handleSearch(value) {
@@ -48,11 +40,12 @@ class Browse extends React.Component {
     if(value.length>3)
     this.setState({search: value})
   }
+
   componentWillMount() {
     GetTopGames(this.setState);
   }
-  render(){
 
+  render(){
     const FocusableSearch = withFocusable(SearchItem)
     console.log(this.state.search.length);
     if(this.state.search.length > 3) {
@@ -60,9 +53,8 @@ class Browse extends React.Component {
     }
     if (this.state.topGames) {
       var imgList = this.state.topGames.map(function (game, index) {
-        const FocusableItem = withFocusable(Item)
         return (
-          <FocusableItem game={game} focusPath={game.name} key={game.name + index}/>
+          <FImage baseURL="/game/" game={game} focusPath={game.name} key={game.name + index}/>
         );
       });
       return(

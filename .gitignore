@@ -4,4 +4,4 @@ package-lock.json
 bundle.js
 *.ipk
 config.js
-yarn.lock
+*.lock
