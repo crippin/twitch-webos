@@ -1,12 +1,19 @@
 language: node_js
 node_js:
   - "10.15.3"
+addons:
+  apt:
+    packages:
+      - "python3"
+      - "python3-pip"
 before_install:
+  - sudo apt-get update
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
   - export PATH="$HOME/.yarn/bin:$PATH"
+  - ./tools/set_lg_sdk.sh
 cache:
   yarn: true
 script:
   - yarn
   - yarn build
-  - yarn build-prod
+  - yarn build-ipk

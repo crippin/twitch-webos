@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-export PATH=${PATH}:${LG_WEBOS_TV_SDK_HOME}/CLI/bin/
+##export PATH=${PATH}:${LG_WEBOS_TV_SDK_HOME}/CLI/bin/
+export PATH=$PATH:`pwd`/CLI/bin/
 echo "Clean"
 rm -rf build
 mkdir build
