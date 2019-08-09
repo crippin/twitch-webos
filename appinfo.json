@@ -6,6 +6,7 @@
   "type": "web",
   "main": "index.html",
   "icon": "resource/icon.png",
+  "splashBackground": "resource/splash-screen.png",
   "uiRevision": 2,
   "largeIcon": "resource/icon-large.png"
 }
