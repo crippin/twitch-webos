@@ -22,6 +22,7 @@ export default class AddTwitchUser extends React.Component {
             this.setState({code: doc.data().ActivateME})
             showOnConsole(this.state.code)
           } else if (doc.data().OAUTH != undefined) {
+            // TODO:token working?
             setOAuth(doc.data().OAUTH);
           } else {
             this.setState({code: generateCode()})
@@ -31,6 +32,7 @@ export default class AddTwitchUser extends React.Component {
   }
   render(){
     if(OAUTH){
+      // TODO:token working?
       return (
         <div>
           READYTOGOOGOGOGOGO
@@ -61,6 +63,7 @@ function generateCode() {
 }
 
 function showOnConsole(code) {
+  console.log('Visit: https://twitch-link.firebaseapp.com');
   console.log(' --------------------------- ');
   console.log(' |                         | ');
   console.log(' | PLEASE ACTIVATE YOUR TV | ');

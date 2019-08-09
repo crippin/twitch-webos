@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetStreamFromChannel, GetStreamDataFromChannel, SearchGame } from './TwitchAPI'
+import { GetStreamFromChannel, GetStreamDataFromChannel, GetStreamFromChannelMixer, SearchGame } from './TwitchAPI'
 import { withFocusable, withNavigation } from 'react-tv-navigation'
 import FButton from './component/FButton'
 const Hls = require('hls.js');
@@ -51,6 +51,7 @@ export default class Stream extends React.Component {
     const { id } = this.props.match.params;
     GetStreamDataFromChannel(id, this.setState)
     GetStreamFromChannel(id, this.setState);
+    //GetStreamFromChannelMixer('LevelUpCast', this.setState);
   }
 
   render(){

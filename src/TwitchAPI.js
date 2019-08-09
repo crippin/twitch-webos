@@ -16,6 +16,25 @@ exports.GetFollowed = function (callback){
       callback({streams: json.streams})
   }});
 }
+// TODO
+exports.CheckTOKEN = function (callback){
+  console.log(OAUTH);
+  $.ajax({
+    type: 'GET',
+    url: 'https://api.twitch.tv/kraken/streams/followed',
+    headers: {
+      'Client-ID': Client_ID,
+      'Authorization': 'OAuth ' + OAUTH
+    },
+    success: function(json) {
+      console.log(json);
+      callback({streams: json.streams})
+    },
+    error: function(err) {
+      console.log(err);
+    }
+  });
+}
 
 exports.GetStreamDataFromChannel = function (id, callback){
   $.ajax({
@@ -80,6 +99,24 @@ exports.GetStreamsFromGame = function (id, callback){
     success: function(json) {
       callback({streams: json.streams})
   }});
+}
+
+exports.GetStreamFromChannelMixer = function (stream, callback) {
+  $.ajax({
+    type: 'GET',
+    url: `https://mixer.com/api/v1/channels/${stream}`,
+    success: function(json) {
+      $.ajax({
+        type: 'GET',
+        url: `https://mixer.com/api/v1/channels/${json.id}/manifest.m3u8`,
+        success: function(res) {
+          // m3u8 to json... OR just parse it manual
+          let src = { url: res.split('\n')[4] }; // source quality
+          callback({src: [src]})
+        }
+      });
+    }
+  });
 }
 
 exports.GetStreamFromChannel = function (stream, callback) {
