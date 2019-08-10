@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const sourcePath = path.join(__dirname, 'src');
 
 const config = {
@@ -10,44 +9,27 @@ const config = {
     filename: 'bundle.js',
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js'],
     modules: [sourcePath, path.resolve(__dirname, 'node_modules'), 'node_modules'],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js)$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
         include: sourcePath,
       },
     ],
   },
-  plugins: [],
-  /**
-   * webpack 4
-   */
-   optimization: {
-     minimizer: [new UglifyJsPlugin()],
-   },
+  optimization: {
+    minimize: true,
+  },
   mode: 'production',
   performance: {
     maxEntrypointSize: 2120000,
     maxAssetSize: 2120000,
   }
 };
-
-if (process.env.NODE_ENV === 'production') {
-  config.plugins.push(
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    })
-  );
-  config.plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
-  config.plugins.push(new webpack.HashedModuleIdsPlugin());
-  config.plugins.push(
-    new UglifyJsPlugin()
-  );
-}
 
 module.exports = config;
