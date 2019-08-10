@@ -27,15 +27,42 @@ $ yarn start
 ## Build bundle.js
 
 ```bash
-$ yarn build-prod
+$ yarn build
 ```
 ## Build ipk
 
+Get webos cli from  
+
+[https://webostv.developer.lge.com/sdk/installation/](https://webostv.developer.lge.com/sdk/installation/)  
+
+or  
+
 ```bash
+# Depends on python3
+$ ./tools/set_webos_cli
+```
+
+then
+
+```bash
+# Make sure that cli's binaries are executable
+# chmod +x CLI/bin/ares-package
 $ yarn build-ipk
 ```
 
 ## Install to tv
+To intall the app you need to enable Developer Mode on the TV.  
+Follow the instructions:
+
+[https://webostv.developer.lge.com/develop/app-test/](https://webostv.developer.lge.com/develop/app-test/)
+
+
 ```bash
-$ ares-isntall app -d tv-name
+# Export TV name
+$ export WEBOS_TV_NAME=tvname
+
+# Make sure that cli's binaries are executable
+# chmod +x CLI/bin/ares-install
+
+$ ./tools/install.sh
 ```

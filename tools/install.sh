@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-export PATH=${PATH}:${LG_WEBOS_TV_SDK_HOME}/CLI/bin/
-TV="[LG]_webOS_TV_UK6300MLB"
+export PATH=${PATH}:`pwd`/CLI/bin/
 FILE=`find build -name '*.ipk'`
 FILE_NAME=${FILE##*/}
-ares-install -r ${FILE_NAME%_*_*} -d $TV
-ares-install $FILE -d $TV
+ares-install -r ${FILE_NAME%_*_*} -d $WEBOS_TV_NAME
+ares-install $FILE -d $WEBOS_TV_NAME
