@@ -6,7 +6,7 @@ const Image = ({focused, focusPath, baseURL, game}) => {
   focused = (focused) ? 'imgfocused' : 'imgunfocused'
   return (
     <Link to={baseURL + game.name}>
-      <img src={game.box.large} className={focused} />
+      <img src={game.box_art_url.replace("{width}", "420").replace("{height}", "420")} className={focused} />
     </Link>
   )
 }

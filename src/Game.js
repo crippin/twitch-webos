@@ -6,8 +6,8 @@ import { withFocusable, withNavigation } from 'react-tv-navigation'
 const Item = ({focused, setFocus, focusPath, stream}) => {
   focused = (focused) ? 'imgfocused' : 'imgunfocused'
   return (
-    <Link to={'/stream/' + stream.channel.name}>
-      <img src={stream.channel.logo} id="gamelist" className={focused} />
+    <Link to={'/stream/' + stream.user_name}>
+      <img src={stream.thumbnail_url.replace("{width}", "420").replace("{height}", "420")} id="gamelist" className={focused} />
     </Link>
   )
 }
@@ -31,7 +31,7 @@ export default class Game extends React.Component {
       var imgList = this.state.streams.map(function (stream, index) {
         const FocusableItem = withFocusable(Item)
         return (
-          <FocusableItem stream={stream} focusPath={stream.channel.name} key={stream.channel.name + index}/>
+          <FocusableItem stream={stream} focusPath={stream.user_name} key={stream.user_name + index}/>
         );
       });
       return(
