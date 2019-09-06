@@ -7,20 +7,31 @@ exports.GetFollowed = function (callback){
   console.log(OAUTH);
   $.ajax({
     type: 'GET',
-    url: 'https://api.twitch.tv/kraken/streams/followed',
+    url: 'https://api.twitch.tv/helix/users',
     headers: {
       'Client-ID': Client_ID,
-      'Authorization': 'OAuth ' + OAUTH
+      'Authorization': 'Bearer ' + OAUTH
     },
     success: function(json) {
-      callback({streams: json.streams})
+      console.log(json);
+      $.ajax({
+        type: 'GET',
+        url: `https://api.twitch.tv/helix/users/follows?from_id=${json.data[0].id}`,
+        headers: {
+          'Client-ID': Client_ID,
+          'Authorization': 'Bearer ' + OAUTH
+        },
+        success: function(json) {
+          console.log(json);
+          callback({streams: json.data})
+      }});
   }});
 }
 
 exports.GetStreamDataFromChannel = function (id, callback){
   $.ajax({
     type: 'GET',
-    url: 'https://api.twitch.tv/kraken/streams/' + id,
+    url: 'https://api.twitch.tv/helix/streams/' + id,
     headers: {
       'Client-ID': Client_ID,
     },
@@ -33,7 +44,7 @@ exports.GetStreamDataFromChannel = function (id, callback){
 exports.Search = function (id, callback){
   $.ajax({
     type: 'GET',
-    url: 'https://api.twitch.tv/kraken/search/channels?query=' + id,
+    url: 'https://api.twitch.tv/helix/search/channels?query=' + id,
     headers: {
       'Client-ID': Client_ID,
     },
@@ -45,7 +56,7 @@ exports.Search = function (id, callback){
 exports.SearchGame = function (id, callback){
   $.ajax({
     type: 'GET',
-    url: 'https://api.twitch.tv/kraken/search/games?query=' + id + '&type=suggest',
+    url: 'https://api.twitch.tv/helix/search/games?query=' + id + '&type=suggest',
     headers: {
       'Client-ID': Client_ID,
     },
@@ -58,27 +69,25 @@ exports.SearchGame = function (id, callback){
 exports.GetTopGames = function (callback){
   $.ajax({
     type: 'GET',
-    url: 'https://api.twitch.tv/kraken/games/top',
+    url: 'https://api.twitch.tv/helix/games/top',
     headers: {
       'Client-ID': Client_ID,
     },
     success: function(json) {
-      var games = [];
-      json.top.map(function(data, index){
-        games.push(data.game);
-      })
-      callback({topGames: games})
+      console.log(json.data)
+      callback({topGames: json.data})
   }});
 }
 exports.GetStreamsFromGame = function (id, callback){
   $.ajax({
     type: 'GET',
-    url: 'https://api.twitch.tv/kraken/streams/?game=' + id,
+    url: 'https://api.twitch.tv/helix/streams/?game=' + id,
     headers: {
       'Client-ID': Client_ID,
     },
     success: function(json) {
-      callback({streams: json.streams})
+      // TODO: new twitch api response doesn't inculeds channel_logo
+      callback({streams: json.data})
   }});
 }
 
