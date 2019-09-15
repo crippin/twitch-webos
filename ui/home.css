@@ -3,7 +3,7 @@ body {
     color: #fafafa;
     margin: 0;
     font-family: 'Russo One', sans-serif;
-    
+    overflow: hidden;
 }
 
 ul {
@@ -54,7 +54,12 @@ nav {
     grid-area: nav;
     display:flex;justify-content:center;align-items:center;
     color: #fafafa;
+    height: 1080px;
     /* background-color: aqua; */
+}
+
+#main-navigation:target {
+    width: 150px;
 }
 
 main2 {
