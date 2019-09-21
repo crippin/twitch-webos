@@ -23,7 +23,24 @@ exports.GetFollowed = function (callback){
         },
         success: function(json) {
           console.log(json);
-          callback({streams: json.data})
+          let ids = new String("");
+          json.data.forEach(value => {
+            ids += "?user_id=" + value.to_id
+          });
+          console.log("ids")
+          console.log(ids + " ")
+          $.ajax({
+            type: 'GET',
+            url: `https://api.twitch.tv/helix/streams?${ids + ""}`,
+            headers: {
+              'Client-ID': Client_ID,
+            },
+            success: function(live) {
+              console.log("live?");
+              console.log(live);
+              callback({streams: live.data})
+          }});
+          //callback({streams: json.data})
       }});
   }});
 }
@@ -81,11 +98,12 @@ exports.GetTopGames = function (callback){
 exports.GetStreamsFromGame = function (id, callback){
   $.ajax({
     type: 'GET',
-    url: 'https://api.twitch.tv/helix/streams/?game=' + id,
+    url: 'https://api.twitch.tv/helix/streams/?game_id=' + id,
     headers: {
       'Client-ID': Client_ID,
     },
     success: function(json) {
+      console.log(json.data);
       // TODO: new twitch api response doesn't inculeds channel_logo
       callback({streams: json.data})
   }});
