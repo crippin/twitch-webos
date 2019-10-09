@@ -1,12 +1,13 @@
 os: linux
 dist: bionic
+language: node_js
+
 addons:
   apt:
     packages:
       - "python3"
       - "python3-pip"
 before_install:
-  - sudo apt-get update
   - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
   - source ~/.nvm/nvm.sh
   - nvm install --lts
