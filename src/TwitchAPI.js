@@ -23,15 +23,15 @@ exports.GetFollowed = function (callback){
         },
         success: function(json) {
           console.log(json);
-          let ids = new String("");
+          let ids = new String(`?user_id="${json.data[0].to_id}"`);
           json.data.forEach(value => {
-            ids += "?user_id=" + value.to_id
+            ids += "&user_id=" + value.to_id
           });
           console.log("ids")
           console.log(ids + " ")
           $.ajax({
             type: 'GET',
-            url: `https://api.twitch.tv/helix/streams?${ids + ""}`,
+            url: `https://api.twitch.tv/helix/streams${ids}`,
             headers: {
               'Client-ID': Client_ID,
             },

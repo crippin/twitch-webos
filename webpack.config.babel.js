@@ -9,7 +9,7 @@ const config = {
     filename: 'bundle.js',
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.css'],
     modules: [sourcePath, path.resolve(__dirname, 'node_modules'), 'node_modules'],
   },
   module: {
