@@ -1,0 +1,83 @@
+body {
+    background-color: black;
+    color: #fafafa;
+    margin: 0;
+    font-family: 'Russo One', sans-serif;
+    overflow: hidden;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li a {
+    text-decoration: none;
+    color: #fafafa;
+}
+
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+    background-color: #777;
+}
+
+.container {
+    display: grid;
+
+    grid-template-areas:
+        "nav contentVideoInfo contentVideo"
+        "nav contentVideoInfo contentVideo"
+        "nav contentVideoList contentVideoList"
+        "nav contentVideoList contentVideoList";
+
+    grid-template-columns: 80px 1fr 1.5fr;
+
+    grid-gap: 10px;
+
+    height: 1080px;
+}
+
+nav {
+    grid-area: nav;
+    display:flex;justify-content:center;align-items:center;
+    color: #fafafa;
+    height: 1080px;
+    /* background-color: aqua; */
+}
+
+#main-navigation:target {
+    width: 150px;
+}
+
+main2 {
+    grid-area: contentVideoInfo;
+    margin-top: 40px;
+    /* background-color: rgb(161, 228, 53); */
+}
+
+main3 {
+    grid-area: contentVideoList;
+    z-index: 1;
+    /* background-color: rgb(26, 115, 192); */
+}
+
+mainVideo {
+    grid-area: contentVideo;
+    height: 52vh;
+    z-index: 0;
+    /* background-color: rgb(167, 80, 116); */
+}
+
